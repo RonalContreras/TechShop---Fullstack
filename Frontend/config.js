@@ -2,17 +2,14 @@
 // Cambiar según el entorno (desarrollo o producción)
 
 const API_CONFIG = {
-  // Para desarrollo local
-  API_URL: "http://localhost:5000/api",
-
-  // Para producción (descomentar y actualizar con la URL real del backend desplegado)
-  // API_URL: 'https://tu-backend-desplegado.com/api',
+  // Para produccion
+  API_URL: "techshop-fullstack-production.up.railway.app",
 
   // Timeout para las peticiones (en milisegundos)
   TIMEOUT: 10000,
 
   // Habilitar logs de consola para debug
-  DEBUG: true,
+  DEBUG: false,
 };
 
 // Hacer disponible globalmente

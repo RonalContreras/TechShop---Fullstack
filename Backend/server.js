@@ -25,7 +25,12 @@ connectDB();
 // Middlewares
 app.use(
   cors({
-    origin: "*", // Permitir todos los orígenes en desarrollo
+    // origin: "*", // Permitir todos los orígenes en desarrollo
+    origin: [
+      process.env.FRONTEND_URL,
+      "http://localhost:5500",
+      "http://localhost:3000",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
