@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración - TechShop</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="admin-body">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <a href="admin.html">Tech<span>Shop</span></a>
+        </div>
+        <p class="admin-subtitle">Panel de Administración</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="nav-item active" data-section="dashboard">
+          <i class="fas fa-chart-line"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#productos" class="nav-item" data-section="productos">
+          <i class="fas fa-box"></i>
+          <span>Productos</span>
+        </a>
+        <a href="#pedidos" class="nav-item" data-section="pedidos">
+          <i class="fas fa-shopping-bag"></i>
+          <span>Pedidos</span>
+        </a>
+        <a href="#usuarios" class="nav-item" data-section="usuarios">
+          <i class="fas fa-users"></i>
+          <span>Usuarios</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="admin-user">
+          <i class="fas fa-user-shield"></i>
+          <div>
+            <p class="admin-name" id="admin-name">Administrador</p>
+            <p class="admin-email" id="admin-email">admin@techshop.com</p>
+          </div>
+        </div>
+        <button class="btn-logout" id="btn-logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Cerrar Sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <button class="mobile-menu-btn" id="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="admin-page-title" id="page-title">Dashboard</h1>
+        <div class="header-actions">
+          <a href="index.html" class="btn btn-outline" target="_blank">
+            <i class="fas fa-store"></i>
+            Ver Tienda
+          </a>
+        </div>
+      </header>
+
+      <!-- Dashboard Section -->
+      <section class="admin-section active" id="section-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(67, 97, 238, 0.1)">
+              <i
+                class="fas fa-dollar-sign"
+                style="color: var(--primary-color)"
+              ></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label">Ventas Totales</p>
+              <p class="stat-value" id="stat-ventas">$0.00</p>
+              <p class="stat-change positive">+12.5% este mes</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(114, 9, 183, 0.1)">
+              <i
+                class="fas fa-shopping-bag"
+                style="color: var(--secondary-color)"
+              ></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label">Pedidos</p>
+              <p class="stat-value" id="stat-pedidos">0</p>
+              <p class="stat-change positive">+8 nuevos</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(247, 37, 133, 0.1)">
+              <i class="fas fa-box" style="color: var(--accent-color)"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label">Productos</p>
+              <p class="stat-value" id="stat-productos">0</p>
+              <p class="stat-change">Activos en tienda</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(76, 201, 240, 0.1)">
+              <i class="fas fa-users" style="color: var(--success-color)"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label">Usuarios</p>
+              <p class="stat-value" id="stat-usuarios">0</p>
+              <p class="stat-change">Registrados</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <div class="card-header">
+              <h3>Pedidos Recientes</h3>
+              <a href="#pedidos" class="link-primary" data-section="pedidos"
+                >Ver todos</a
+              >
+            </div>
+            <div class="recent-orders" id="recent-orders">
+              <p class="loading-text">Cargando pedidos...</p>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-header">
+              <h3>Productos Más Vendidos</h3>
+            </div>
+            <div class="top-products" id="top-products">
+              <p class="loading-text">Cargando productos...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3>Estado de Pedidos</h3>
+          </div>
+          <div class="orders-status-grid">
+            <div class="status-item">
+              <div class="status-badge status-pendiente">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div>
+                <p class="status-count" id="count-pendientes">0</p>
+                <p class="status-label">Pendientes</p>
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-badge status-procesando">
+                <i class="fas fa-spinner"></i>
+              </div>
+              <div>
+                <p class="status-count" id="count-procesando">0</p>
+                <p class="status-label">Procesando</p>
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-badge status-enviado">
+                <i class="fas fa-shipping-fast"></i>
+              </div>
+              <div>
+                <p class="status-count" id="count-enviados">0</p>
+                <p class="status-label">Enviados</p>
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-badge status-entregado">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div>
+                <p class="status-count" id="count-entregados">0</p>
+                <p class="status-label">Entregados</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Productos Section -->
+      <section class="admin-section" id="section-productos">
+        <div class="section-header">
+          <div>
+            <h2>Gestión de Productos</h2>
+            <p class="section-subtitle">
+              Administra el catálogo de productos de la tienda
+            </p>
+          </div>
+          <button class="btn" id="btn-nuevo-producto">
+            <i class="fas fa-plus"></i>
+            Nuevo Producto
+          </button>
+        </div>
+
+        <div class="table-container">
+          <div class="table-filters">
+            <input
+              type="text"
+              placeholder="Buscar productos..."
+              class="search-input"
+              id="search-productos"
+            />
+            <select class="filter-select" id="filter-categoria">
+              <option value="">Todas las categorías</option>
+              <option value="smartphones">Smartphones</option>
+              <option value="laptops">Laptops</option>
+              <option value="tablets">Tablets</option>
+              <option value="accesorios">Accesorios</option>
+              <option value="wearables">Wearables</option>
+            </select>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="productos-table-body">
+              <tr>
+                <td colspan="7" class="loading-cell">Cargando productos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Pedidos Section -->
+      <section class="admin-section" id="section-pedidos">
+        <div class="section-header">
+          <div>
+            <h2>Gestión de Pedidos</h2>
+            <p class="section-subtitle">
+              Administra y actualiza el estado de los pedidos
+            </p>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div class="table-filters">
+            <input
+              type="text"
+              placeholder="Buscar por ID o cliente..."
+              class="search-input"
+              id="search-pedidos"
+            />
+            <select class="filter-select" id="filter-estado">
+              <option value="">Todos los estados</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="procesando">Procesando</option>
+              <option value="enviado">Enviado</option>
+              <option value="entregado">Entregado</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID Pedido</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="pedidos-table-body">
+              <tr>
+                <td colspan="6" class="loading-cell">Cargando pedidos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Usuarios Section -->
+      <section class="admin-section" id="section-usuarios">
+        <div class="section-header">
+          <div>
+            <h2>Gestión de Usuarios</h2>
+            <p class="section-subtitle">
+              Administra los usuarios registrados en la plataforma
+            </p>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div class="table-filters">
+            <input
+              type="text"
+              placeholder="Buscar usuarios..."
+              class="search-input"
+              id="search-usuarios"
+            />
+            <select class="filter-select" id="filter-rol">
+              <option value="">Todos los roles</option>
+              <option value="usuario">Usuario</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Fecha Registro</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="usuarios-table-body">
+              <tr>
+                <td colspan="6" class="loading-cell">Cargando usuarios...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal Producto -->
+    <div class="modal" id="modal-producto">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-producto-title">Nuevo Producto</h3>
+          <button class="modal-close" data-modal="modal-producto">
+            &times;
+          </button>
+        </div>
+        <form id="form-producto" class="modal-form">
+          <input type="hidden" id="producto-id" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="producto-nombre">Nombre del Producto *</label>
+              <input type="text" id="producto-nombre" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="producto-descripcion">Descripción *</label>
+            <textarea id="producto-descripcion" rows="3" required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="producto-precio">Precio ($) *</label>
+              <input
+                type="number"
+                id="producto-precio"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="producto-stock">Stock *</label>
+              <input type="number" id="producto-stock" min="0" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="producto-categoria">Categoría *</label>
+              <select id="producto-categoria" required>
+                <option value="">Seleccionar categoría</option>
+                <option value="smartphones">Smartphones</option>
+                <option value="laptops">Laptops</option>
+                <option value="tablets">Tablets</option>
+                <option value="accesorios">Accesorios</option>
+                <option value="wearables">Wearables</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="producto-marca">Marca</label>
+              <input type="text" id="producto-marca" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="producto-imagen">URL de Imagen *</label>
+            <input type="url" id="producto-imagen" required />
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="producto-destacado" />
+              <span>Marcar como producto destacado</span>
+            </label>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline"
+              data-modal="modal-producto"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn">Guardar Producto</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Pedido -->
+    <div class="modal" id="modal-pedido">
+      <div class="modal-content modal-large">
+        <div class="modal-header">
+          <h3>Detalles del Pedido</h3>
+          <button class="modal-close" data-modal="modal-pedido">&times;</button>
+        </div>
+        <div class="modal-body" id="pedido-detalles">
+          <!-- Contenido dinámico -->
+        </div>
+      </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>
