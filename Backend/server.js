@@ -22,20 +22,41 @@ const app = express();
 // Conectar a la base de datos
 connectDB();
 
-// Middlewares
 app.use(
   cors({
-    // origin: "*", // Permitir todos los orígenes en desarrollo
-    origin: [
-      process.env.FRONTEND_URL,
-      "http://localhost:5500",
-      "http://localhost:3000",
-    ],
+    origin: function (origin, callback) {
+      // Permitir requests sin origin (como apps móviles o curl)
+      if (!origin) return callback(null, true);
+
+      const allowedOrigins = [
+        process.env.FRONTEND_URL,
+        "http://localhost:5500",
+        "http://localhost:3000",
+        "http://127.0.0.1:5500",
+        /\.vercel\.app$/, // Permite todos los subdominios de vercel.app
+      ];
+
+      const isAllowed = allowedOrigins.some((allowed) => {
+        if (allowed instanceof RegExp) {
+          return allowed.test(origin);
+        }
+        return allowed === origin;
+      });
+
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Content-Range", "X-Content-Range"],
   })
 );
+
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
