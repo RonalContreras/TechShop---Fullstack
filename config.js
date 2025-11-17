@@ -1,7 +1,7 @@
 // Configuración de la API
 
 const API_CONFIG = {
-  API_URL: "https://techshop-fullstack-production.up.railway.app",
+  API_URL: "https://techshop-fullstack-production.up.railway.app/api",
 
   // Timeout para las peticiones (en milisegundos)
   TIMEOUT: 10000,
